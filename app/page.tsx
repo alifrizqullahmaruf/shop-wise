@@ -1,4 +1,6 @@
 import { getProducts, getCategories } from "@/lib/api";
+
+export const dynamic = "force-dynamic";
 import { Container } from "@/components/layout/Container";
 import { HeroSection } from "@/components/home/HeroSection";
 import { CategoryShortcut } from "@/components/home/CategoryShortcut";
