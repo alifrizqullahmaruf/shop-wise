@@ -10,13 +10,13 @@ export function WishlistCount() {
   return (
     <Link
       href="/wishlist"
-      className="relative flex items-center gap-1 text-sm text-zinc-700 transition-colors hover:text-zinc-900"
+      className="relative flex h-9 w-9 items-center justify-center rounded-xl text-stone-600 transition-all hover:bg-rose-50 hover:text-rose-500"
       aria-label={`Wishlist (${count} items)`}
     >
       <Heart className="h-5 w-5" />
       {count > 0 && (
-        <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">
-          {count > 99 ? "99+" : count}
+        <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-rose-500 text-[9px] font-bold text-white shadow-sm">
+          {count > 9 ? "9+" : count}
         </span>
       )}
     </Link>

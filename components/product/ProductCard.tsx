@@ -19,56 +19,76 @@ export function ProductCard({ product }: ProductCardProps) {
   function handleAddToCart(e: React.MouseEvent) {
     e.preventDefault();
     addToCart(product);
-    toast.success(`${product.title.slice(0, 30)}... added to cart`);
+    toast.success("Added to cart!");
   }
 
   return (
     <Link
       href={`/products/${product.id}`}
-      className="group relative flex flex-col rounded-xl border border-zinc-100 bg-white p-4 shadow-sm transition-all hover:border-zinc-200 hover:shadow-md"
+      className="group relative flex flex-col overflow-hidden rounded-2xl border border-stone-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-stone-200/60"
     >
-      <div className="absolute right-4 top-4 z-10">
+      {/* Wishlist button */}
+      <div className="absolute right-3 top-3 z-10 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
         <WishlistButton product={product} />
       </div>
 
-      <div className="relative mb-4 flex h-48 items-center justify-center overflow-hidden rounded-lg bg-zinc-50">
+      {/* Image area */}
+      <div className="relative flex h-52 items-center justify-center overflow-hidden bg-linear-to-br from-stone-50 to-stone-100">
         <Image
           src={product.image}
           alt={product.title}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-          className="object-contain p-4 transition-transform duration-300 group-hover:scale-105"
+          className="object-contain p-5 transition-transform duration-500 group-hover:scale-110"
         />
-      </div>
-
-      <div className="mb-2">
-        <ProductBadge product={product} />
-      </div>
-
-      <p className="mb-1 line-clamp-2 text-sm font-medium text-zinc-900">
-        {product.title}
-      </p>
-
-      <p className="mb-1 text-xs text-zinc-400 capitalize">{product.category}</p>
-
-      <div className="mb-3 flex items-center gap-1">
-        <Star className="h-3 w-3 fill-amber-400 text-amber-400" />
-        <span className="text-xs text-zinc-600">
-          {product.rating.rate} ({product.rating.count})
+        {/* Category pill */}
+        <span className="absolute bottom-2 left-2 rounded-full bg-white/80 px-2.5 py-0.5 text-[10px] font-semibold capitalize text-stone-600 backdrop-blur-sm shadow-sm">
+          {product.category}
         </span>
       </div>
 
-      <div className="mt-auto flex items-center justify-between">
-        <span className="text-base font-bold text-zinc-900">
-          ${product.price.toFixed(2)}
-        </span>
-        <button
-          onClick={handleAddToCart}
-          className="flex h-8 w-8 items-center justify-center rounded-full bg-zinc-900 text-white transition-colors hover:bg-zinc-700"
-          aria-label="Add to cart"
-        >
-          <ShoppingCart className="h-4 w-4" />
-        </button>
+      {/* Content */}
+      <div className="flex flex-1 flex-col p-4">
+        <div className="mb-2">
+          <ProductBadge product={product} />
+        </div>
+
+        <p className="mb-2 line-clamp-2 text-sm font-semibold leading-snug text-stone-800">
+          {product.title}
+        </p>
+
+        {/* Rating */}
+        <div className="mb-3 flex items-center gap-1.5">
+          <div className="flex items-center gap-0.5">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <Star
+                key={i}
+                className={`h-3 w-3 ${
+                  i < Math.round(product.rating.rate)
+                    ? "fill-amber-400 text-amber-400"
+                    : "fill-stone-200 text-stone-200"
+                }`}
+              />
+            ))}
+          </div>
+          <span className="text-xs text-stone-500">
+            {product.rating.rate} <span className="text-stone-300">·</span> {product.rating.count} reviews
+          </span>
+        </div>
+
+        {/* Price + CTA */}
+        <div className="mt-auto flex items-center justify-between">
+          <div>
+            <span className="text-xl font-extrabold text-stone-900">${product.price.toFixed(2)}</span>
+          </div>
+          <button
+            onClick={handleAddToCart}
+            className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-500 text-white shadow-md shadow-amber-200 transition-all hover:bg-amber-600 hover:scale-105 active:scale-95"
+            aria-label="Add to cart"
+          >
+            <ShoppingCart className="h-4 w-4" />
+          </button>
+        </div>
       </div>
     </Link>
   );

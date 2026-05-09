@@ -10,13 +10,13 @@ export function CartCount() {
   return (
     <Link
       href="/cart"
-      className="relative flex items-center gap-1 text-sm text-zinc-700 transition-colors hover:text-zinc-900"
+      className="relative flex h-9 w-9 items-center justify-center rounded-xl text-stone-600 transition-all hover:bg-stone-100 hover:text-stone-900"
       aria-label={`Cart (${totalItems} items)`}
     >
       <ShoppingCart className="h-5 w-5" />
       {totalItems > 0 && (
-        <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-zinc-900 text-[10px] font-bold text-white">
-          {totalItems > 99 ? "99+" : totalItems}
+        <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-amber-500 text-[9px] font-bold text-white shadow-sm">
+          {totalItems > 9 ? "9+" : totalItems}
         </span>
       )}
     </Link>
